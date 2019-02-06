@@ -30,6 +30,7 @@ const resolvers = {
         id: 1,
         name: 'test',
         boughtProducts: [],
+        likedProducts: [],
       }
     },
     products: () => {

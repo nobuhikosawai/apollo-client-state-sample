@@ -1,11 +1,16 @@
 import React, { Component } from 'react';
 import ApolloClient, { gql } from "apollo-boost";
 import { ApolloProvider, Query } from 'react-apollo';
-import logo from './logo.svg';
 import './App.css';
+import { defaults, resolvers } from './resolvers';
 
+const uri = 'http://localhost:4000/graphql';
 const client = new ApolloClient({
-  uri: 'http://localhost:4000/graphql'
+  uri,
+  clientState: {
+    defaults,
+    resolvers,
+  }
 })
 
 const Products = () => (
@@ -15,6 +20,7 @@ const Products = () => (
         products {
           name
         }
+        likedProducts @client
       }
     `}
   >
@@ -39,18 +45,6 @@ class App extends Component {
       <ApolloProvider client={client}>
         <div className="App">
           <header className="App-header">
-            <img src={logo} className="App-logo" alt="logo" />
-            <p>
-              Edit <code>src/App.tsx</code> and save to reload.
-            </p>
-            <a
-              className="App-link"
-              href="https://reactjs.org"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learn React
-            </a>
             <Products />
           </header>
         </div>
