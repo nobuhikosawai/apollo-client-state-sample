@@ -6,14 +6,14 @@ export const defaults = {
 
 export const resolvers = {
   Mutation: {
-    addLikedProducts: (_: any, { prodcutId }:any, { cache }:any ) => {
+    addLikedProducts: (_: any, { id }:any, { cache }:any ) => {
       const query = gql`
-        query GetLikedPost {
-          likedPost @client
+        query {
+          likedProducts @client
         }
       `; 
       const previous = cache.readQuery({ query });
-      const newData = [...previous, prodcutId];
+      const newData = [...previous.likedProducts, id];
       const data = { likedProducts: newData };
       cache.writeData({ data });
       return newData;
